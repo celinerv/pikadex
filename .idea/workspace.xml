@@ -60,11 +60,9 @@
       </MavenImportingSettings>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="34" />
-    <option name="y" value="159" />
-    <option name="width" value="1260" />
-    <option name="height" value="577" />
+  <component name="ProjectFrameBounds" extendedState="6" fullScreen="true">
+    <option name="width" value="1440" />
+    <option name="height" value="900" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -131,9 +129,6 @@
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="pikadex" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
     </configuration>
     <recent_temporary>
       <list>
