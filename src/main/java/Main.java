@@ -22,6 +22,7 @@ public class Main extends ListenerAdapter {
         );
         String response = "";
 
+
         switch(event.getMessage().getContentRaw()){
             case "!ping":
                 response = "Pong!";
