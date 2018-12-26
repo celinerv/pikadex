@@ -1,7 +1,5 @@
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.AccountType;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -10,7 +8,7 @@ import javax.security.auth.login.LoginException;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class Main extends ListenerAdapter {
+public class Main {
 
     final static String secretsPath = "resources/secrets.json";
 
@@ -20,7 +18,7 @@ public class Main extends ListenerAdapter {
         JSONParser jsonParser = new JSONParser();
         String token;
         try {
-            JSONObject obj = (JSONObject)jsonParser.parse(new FileReader(secretsPath));
+            JSONObject obj = (JSONObject) jsonParser.parse(new FileReader(secretsPath));
             token = (String) obj.get("token");
         } catch (IOException | ParseException e) {
             e.printStackTrace();
@@ -33,34 +31,10 @@ public class Main extends ListenerAdapter {
         builder.setToken(token);
 
         // Handle events
-        builder.addEventListener(new Main());
+        builder.addEventListener(new EventListener());
 
         // Launch bot
         builder.buildAsync();
     }
-
-    @Override
-    public void onMessageReceived(MessageReceivedEvent event){
-        System.out.println("We received a message from" +
-                event.getAuthor().getName() + ":" +
-                event.getMessage().getContentDisplay()
-        );
-
-        String response = null;
-        switch(event.getMessage().getContentRaw()){
-            case "!ping":
-                response = "Pong!";
-                break;
-            case "bitch":
-                response = "That's not nice";
-                break;
-            default:
-                //do nothing
-                break;
-        }
-
-        if (response == null) return; //do nothing
-        else event.getChannel().sendMessage(response).queue();
-        }
-    }
+}
 
