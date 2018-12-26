@@ -5,8 +5,8 @@ public class EventListener extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event){
-        System.out.println("We received a message from" +
-                event.getAuthor().getName() + ":" +
+        System.out.println("We received a message from " +
+                event.getAuthor().getName() + ":\t" +
                 event.getMessage().getContentDisplay()
         );
         String response = null;
