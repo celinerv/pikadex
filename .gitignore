@@ -1,1 +1,3 @@
 .idea/
+resources/secrets.json
+target/
