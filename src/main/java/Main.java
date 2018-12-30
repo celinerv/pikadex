@@ -1,7 +1,8 @@
+// DISCORD JDA
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.AccountType;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
+
+// GOOGLE JSON PARSER
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -10,29 +11,34 @@ import javax.security.auth.login.LoginException;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class Main extends ListenerAdapter {
+public class Main {
     public static void main(String[] args) throws LoginException {
 
         // Read token from json
-        String token;
+        String discordToken;
         try {
             JSONParser parser = new JSONParser();
             Object obj = parser.parse(new FileReader("rsrc/secrets.json"));
             JSONObject json = (JSONObject) obj;
-            token = (String) json.get("token");
+
+            // Typecast the result to a String object
+            discordToken = (String) json.get("token");
+
         } catch (IOException | ParseException e){
+            // Print out exception to error console
             e.printStackTrace();
             return;
         }
 
-        // Building the Bot...
         JDABuilder builder = new JDABuilder(AccountType.BOT);
+        // Building the bot...
 
         // Authenticate
-        builder.setToken(token);
+        builder.setToken(discordToken);
 
-        // Attach Event Listener
-        builder.addEventListener(new EventListener());
+        // Attach an EventListener object
+        EventListener el = new EventListener();
+        builder.addEventListener(el);
 
         // Build the bot
         builder.buildAsync();
