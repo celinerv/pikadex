@@ -20,6 +20,7 @@ public class PokeApiAccessLayer {
 
     public Pokemon searchPokemon(String species){
         int speciesId = DBClient.getId(species);
+        if (speciesId < 0) return null;
         return pokeApi.getPokemon(speciesId);
     }
 }

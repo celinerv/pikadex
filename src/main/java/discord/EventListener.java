@@ -1,6 +1,7 @@
 package discord;
 
 import discord.PokeAPI.PokeApiAccessLayer;
+import me.sargunvohra.lib.pokekotlin.model.Pokemon;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
@@ -24,26 +25,39 @@ public class EventListener extends ListenerAdapter {
                 event.getMessage().getContentDisplay()
         );
 
-        // Construct the response
+        if (event.getAuthor().getName().equals("Pikadex")) return; //don't respond to itself
+
+        // Construct the response...
         String response = null;
 
-        //TODO parse message for tokens based on supported commands instead of using a switch statement
+        //TODO Revise current behavior to accept supported commands
+        //Todo Bot currently sends a picture of the pokemon
+        String msg = event.getMessage().getContentRaw();
+        Pokemon p = pokeApi.searchPokemon(msg);
+        if (p == null) response = "Pokemon not found!";
+        else response = p.getSprites().getFrontDefault();
 
-        switch(event.getMessage().getContentRaw()) {
+        /*
+        switch(msg) {
             case "!ping":
                 response = "Pong!";
                 break;
             case "bitch":
                 response = "That's not nice";
                 break;
-            case "!venusaur":
-                response = pokeApi.searchPokemon("venusaur").toString();
+            default:
+                Pokemon p = pokeApi.searchPokemon(msg);
+                if (p == null) response = "Pokemon not found!";
+                else response = p.getSprites().getFrontDefault();
+                break;
         }
+        */
 
         if (response == null) {
             return; // do nothing
         } else {
-            event.getChannel().sendMessage(response.substring(0, 100) + "...").queue(); // send the message
+            if (response.length() > 2000) response = response.substring(0, 2000);
+            event.getChannel().sendMessage(response).queue(); // send the message
         }
     }
 }
