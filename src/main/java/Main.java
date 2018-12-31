@@ -1,4 +1,5 @@
 // DISCORD JDA
+import discord.EventListener;
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.AccountType;
 
@@ -12,6 +13,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Main {
+
     public static void main(String[] args) throws LoginException {
 
         // Read token from json
@@ -36,7 +38,7 @@ public class Main {
         // Authenticate
         builder.setToken(discordToken);
 
-        // Attach an EventListener object
+        // Attach an discord.EventListener object
         EventListener el = new EventListener();
         builder.addEventListener(el);
 
